@@ -1,0 +1,110 @@
+.topContainer {
+    width: 100vw;
+  height: 100vh;
+}
+
+.overal {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 80px;
+}
+
+.navigation-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90vw;
+}
+
+.navigation-menu {
+  display: flex;
+  justify-content: center;
+  align-self: flex-start;
+  height: 100%;
+  max-width: 235px;
+  margin-right: auto;
+}
+
+.link {
+  padding: 4px 16px auto 16px;
+  padding: 4px 16px 0 16px;
+  margin-top: 24px;
+  text-decoration: none;
+  color: #1d1f22;
+  font-family: "Raleway";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  text-transform: uppercase;
+}
+
+.link:hover {
+  color: #5ece7b;
+  border-bottom: 2px solid #5ece7b;
+  font-weight: 600;
+}
+
+.logo {
+  width: 31px;
+  height: 30px;
+}
+
+.currency-cart-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+}
+
+.currency-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.currency-container:hover .currency {
+  color: #5ece7b;
+}
+
+.currency-container:hover .arrow {
+  filter: invert(74%) sepia(11%) saturate(1959%) hue-rotate(83deg)
+    brightness(95%) contrast(85%);
+}
+
+.currency {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #1d1f22;
+  cursor: pointer;
+}
+
+.arrow {
+  width: 6px;
+  height: 3px;
+  color: #5ece7b;
+}
+
+.cart {
+  width: 20px;
+  height: 20px;
+  margin-left: 22px;
+  cursor: pointer;
+}
+
+.cart:hover {
+  filter: invert(74%) sepia(11%) saturate(1959%) hue-rotate(83deg)
+    brightness(95%) contrast(85%);
+}
+
+.cart-container {
+  position: relative;
+}
