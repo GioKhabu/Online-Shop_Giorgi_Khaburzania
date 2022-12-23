@@ -10,6 +10,11 @@ class All extends Component {
   render() {
     return (
       <div className="all-container">
+        {/* {!this.props.inStock && (
+          <div className="out-of-stock">
+            <h3 className="out-of-stock-text">OUT OF STOCK</h3>
+          </div>
+        )} */}
         <div className="all-group-container">
           <h2 className="header">All</h2>
           <div className="cards-container">
@@ -23,6 +28,9 @@ class All extends Component {
                   inStock={item.inStock}
                   prices={item.prices}
                   incrementItemCount={this.props.incrementItemCount}
+                  priceId={this.props.priceId}
+                  productItemId={this.props.productItemId}
+                  updateProductId={this.props.updateProductId}
                 />
               );
             })}

@@ -1,13 +1,36 @@
 .card-container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 0px;
   width: 386px;
   height: 444px;
   left: calc(50% - 386px / 2 - 427px);
   margin-bottom: 103px;
   margin-right: 40px;
+  
+}
+
+.card-container-in-stock {
+  position: inherit;
+}
+
+.out-of-stock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: rgba(137, 137, 139, 0.1);
+  width: 386px;
+  height: 444px;
+}
+
+.out-of-stock-text {
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 400;
+font-size: 24px;
+line-height: 160%;
+color: #8D8F9A;
 }
 
 .image-container {
@@ -26,6 +49,7 @@
 
 .cart-icon-container1 {
   display: none;
+  position: absolute;
   align-items: center;
   justify-content: center;
   height: 52px;
@@ -33,8 +57,7 @@
   border-radius: 360px;
   align-self: flex-start;
   margin-left: 310px;
-  margin-top: 320px;
-  position: absolute;
+  margin-top: -28px;
   background-color: #5ece7b;
   filter: drop-shadow(0px 4px 11px rgba(29, 31, 34, 0.1));
   cursor: pointer;

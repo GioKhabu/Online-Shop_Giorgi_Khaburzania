@@ -1,5 +1,5 @@
 .topContainer {
-    width: 100vw;
+  width: 100vw;
   height: 100vh;
 }
 
@@ -52,6 +52,11 @@ header {
   border-bottom: 2px solid #5ece7b;
   font-weight: 600;
 }
+.active {
+    color: #5ece7b;
+  border-bottom: 2px solid #5ece7b;
+  font-weight: 600;
+}
 
 .logo {
   width: 31px;
@@ -93,11 +98,16 @@ header {
   color: #5ece7b;
 }
 
+.cart-container {
+  position: relative;
+}
 .cart {
+  position: relative;
   width: 20px;
   height: 20px;
   margin-left: 22px;
   cursor: pointer;
+  z-index: 2;
 }
 
 .cart:hover {
@@ -105,6 +115,24 @@ header {
     brightness(95%) contrast(85%);
 }
 
-.cart-container {
-  position: relative;
+.cart-items-counter {
+  position: absolute;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top: -9px;
+  margin-left: 35px;
+  min-width: 20px;
+  min-height: 20px;
+  background: #1d1f22;
+  border-radius: 180px;
+  z-index: 1;
 }

@@ -3,24 +3,23 @@ import { Component } from "react";
 class CartItem extends Component {
 
   render() {
-    const cartCount = this.props.cartItemsCount.find(item => {
-        return item.id === this.props.id
-      })
 
     return (
-      <div className="cart-item">
+      <div className="cart-item" id={this.props.id}>
         <div className="cart-item-details">
           <h4 className="cart-item-name">{this.props.name}</h4>
           <h3 className="cart-item-price">
-            {this.props.prices[0].amount} {this.props.prices[0].currency.symbol}
+            {this.props.prices[this.props.priceId].amount}{" "}
+            {this.props.prices[this.props.priceId].currency.symbol}
           </h3>
           {this.props.attributes.map((item, index) => {
             return (
-              <div key={index}>
+              <div key={index} id={index}>
                 <h4 className="cart-item-attribute-type">{item.name}</h4>
                 <div className="cart-item-attributes-container">
                   {item.items.map((attItem, index) => {
                     let colorStyles = {};
+                    let classforActiveColor = "";
                     let classForStyles = "";
                     if (item.name === "Color") {
                       colorStyles = {
@@ -30,11 +29,19 @@ class CartItem extends Component {
                     } else {
                       classForStyles = "cart-normal-styles";
                     }
+
+                    if (attItem.isActive && item.name === "Color") {
+                      classforActiveColor = "cart-color-active";
+                    } else if (attItem.isActive) {
+                      classforActiveColor = "cart-normal-active";
+                    }
                     return (
                       <div
-                        className={`${classForStyles}`}
+                        className={`${classForStyles} ${classforActiveColor}`}
                         style={colorStyles}
-                        key={index}
+                        key={attItem.value}
+                        id={attItem.value}
+                        onClick={this.props.selectAttribute}
                       >
                         {item.name !== "Color" && attItem.value}
                       </div>
@@ -53,8 +60,14 @@ class CartItem extends Component {
           >
             +
           </span>
-          <span className="cart-item-amount">{cartCount.count}</span>
-          <span className="cart-minus">-</span>
+          <span className="cart-item-amount">{this.props.count}</span>
+          <span
+            className="cart-minus"
+            id={this.props.id}
+            onClick={this.props.decrementItemCount}
+          >
+            -
+          </span>
         </div>
         <div className="cart-item-image-container">
           <img

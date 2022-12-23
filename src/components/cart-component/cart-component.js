@@ -9,10 +9,6 @@ class Cart extends Component {
     event.target === event.currentTarget && this.props.onCklickOutside();
   };
 
-
-
-
-
   render() {
 
     return (
@@ -25,24 +21,35 @@ class Cart extends Component {
                 {this.props.itemCount} items
               </h4>
             </div>
-            {this.props.cartProducts.map((item) => {
-              return (
-                <CartItem
-                  key={item.id}
-                  id={item.id}
-                  gallery={item.gallery[0]}
-                  name={item.name}
-                  inStock={item.inStock}
-                  prices={item.prices}
-                  attributes={item.attributes}
-                  cartItemsCount={this.props.cartItemsCount}
-                  incrementItemCount={this.props.incrementItemCount}
-                />
-              );
-            })}
+            <div className="cart-items-group">
+              {this.props.cartProducts.map((item) => {
+                return (
+                  <CartItem
+                    key={item.id}
+                    id={item.id}
+                    gallery={item.gallery[0]}
+                    name={item.name}
+                    inStock={item.inStock}
+                    count={item.count}
+                    prices={item.prices}
+                    attributes={item.attributes}
+                    incrementItemCount={this.props.incrementItemCount}
+                    decrementItemCount={this.props.decrementItemCount}
+                    selectAttribute={this.props.selectAttribute}
+                    priceId={this.props.priceId}
+                  />
+                );
+              })}
+            </div>
             <div className="cart-total-container">
               <h3 className="cart-total-name">Total</h3>
-              <h4 className="cart-total-sum">{this.props.totalCost}</h4>
+              <h4 className="cart-total-sum">
+                {
+                  this.props.cartProducts[0].prices[this.props.priceId].currency
+                    .symbol
+                }
+                {this.props.totalCost}
+              </h4>
             </div>
             <div className="cart-button-container">
               <button className="view-bag-button">VIEW BAG</button>

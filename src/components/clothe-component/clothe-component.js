@@ -21,6 +21,7 @@ class Clothe extends Component {
                   inStock={item.inStock}
                   prices={item.prices}
                   incrementItemCount={this.props.incrementItemCount}
+                  priceId={this.props.priceId}
                 />
               );
             })}
