@@ -8,7 +8,9 @@ import Navigation from "./routes/navigation/navigation-component";
 import All from "./components/all-component/all-component";
 import Tech from "./components/tech-component/tech-component";
 import Clothe from "./components/clothe-component/clothe-component";
-import ItemPage from "./components/Item-page-component/item-page-component";
+import ItemPage from "./components/item-page-component/item-page-component";
+import Checkout from "./components/checkout-component/checkout-component";
+
 import "./App.css";
 
 const client = new ApolloClient({
@@ -75,6 +77,7 @@ class App extends Component {
           pricesType: res.data.categories[0].products[0].prices,
         });
       });
+      
   }
 
   changeCurrency = (event) => {
@@ -99,11 +102,13 @@ class App extends Component {
       this.setState({
         totalCost: parseFloat(sum).toFixed(2),
       });
+
     }
   }
 
   incrementItemCount = (event) => {
     event.stopPropagation();
+    event.preventDefault();
 
     const newCartItem = this.state.allProducts.filter((item) => {
       const filtered = item.id === event.currentTarget.id;
@@ -176,23 +181,52 @@ class App extends Component {
 
   addAtt = () => {
     if (this.state.itemCount === 0) {
-      this.state.allProducts.forEach((item) =>
+      this.state.allProducts.forEach((item) => {
+        item.galleryIndex = 0;
         item.attributes.forEach((att) =>
           att.items.forEach((attItem) => (attItem.isActive = false))
-        )
-      );
+        );
+      });
     }
   };
 
   updateProductId = (event) => {
     event.stopPropagation();
-    
+
     if (event.currentTarget.id) {
       this.setState({
         productItemId: event.currentTarget.id,
       });
     }
-    console.log(this.state.productItemId);
+  };
+
+  changeGalleryImage = (event) => {
+    const idx = this.state.cartProducts.findIndex(
+      (countItem) => countItem.id === event.currentTarget.id
+    );
+
+    if (
+      Number(this.state.cartProducts[idx].gallery.length - 1) >
+      this.state.cartProducts[idx].galleryIndex
+    ) {
+      this.state.cartProducts[idx].galleryIndex++;
+    } else {
+      this.state.cartProducts[idx].galleryIndex = 0;
+    }
+    this.forceUpdate();
+  };
+
+  changeGalleryImageBack = (event) => {
+        const idx = this.state.cartProducts.findIndex(
+          (countItem) => countItem.id === event.currentTarget.id
+        );
+        if (this.state.cartProducts[idx].galleryIndex !== 0) {
+          this.state.cartProducts[idx].galleryIndex--;
+        } else {
+          this.state.cartProducts[idx].galleryIndex =
+            this.state.cartProducts[idx].gallery.length - 1;
+        }
+    this.forceUpdate();
   };
 
   selectAttribute = (event) => {
@@ -284,6 +318,26 @@ class App extends Component {
                     incrementItemCount={this.incrementItemCount}
                     selectAttribute={this.selectAttribute}
                     priceId={this.state.priceId}
+                  />
+                )
+              }
+            />
+            <Route
+              path="/checkout"
+              element={
+                this.state.allProducts.length && (
+                  <Checkout
+                    cartProducts={this.state.cartProducts}
+                    allProducts={this.state.allProducts}
+                    productItemId={this.state.productItemId}
+                    incrementItemCount={this.incrementItemCount}
+                    decrementItemCount={this.decrementItemCount}
+                    selectAttribute={this.selectAttribute}
+                    priceId={this.state.priceId}
+                    itemCount={this.state.itemCount}
+                    totalCost={this.state.totalCost}
+                    changeGalleryImage={this.changeGalleryImage}
+                    changeGalleryImageBack={this.changeGalleryImageBack}
                   />
                 )
               }

@@ -7,7 +7,7 @@
   width: 100vw;
   height: calc(100vh - 80px);
   background-color: rgba(57, 55, 72, 0.22);
-  z-index: 0;
+  z-index: 2;
 }
 
 .cart-dropdown-container {
@@ -295,6 +295,9 @@
   color: #1d1f22;
   cursor: pointer;
 }
+.cart-checkout-button {
+  text-decoration: none;
+}
 
 .view-bag-button:hover {
   background: #5ece7b;
@@ -318,10 +321,15 @@
   line-height: 120%;
   color: #ffffff;
   cursor: pointer;
+  text-decoration: none;
+
 }
 
 .check-out-button:hover {
   background: #ffffff;
   border: 1px solid #1d1f22;
   color: #1d1f22;
+  text-decoration: none;
+
 }
+

@@ -7,7 +7,6 @@
   left: calc(50% - 386px / 2 - 427px);
   margin-bottom: 103px;
   margin-right: 40px;
-  
 }
 
 .card-container-in-stock {
@@ -19,9 +18,13 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  background-color: rgba(137, 137, 139, 0.1);
   width: 386px;
   height: 444px;
+}
+
+.out-of-stock-opecity{
+  opacity: 0.5;
+
 }
 
 .out-of-stock-text {
@@ -63,6 +66,10 @@ color: #8D8F9A;
   cursor: pointer;
 }
 
+.cart-icon-container1:hover {
+  opacity: 0.8;
+}
+
 .card-container:hover .cart-icon-container1 {
   display: flex;
 }
@@ -77,17 +84,20 @@ color: #8D8F9A;
     brightness(101%) contrast(104%);
 }
 
+.card-link-wrapper {
+  text-decoration: none;
+}
+
 .card-info {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
   padding: 0px;
-
   width: 354px;
 }
 
-.name {
+.card-name {
   font-family: "Raleway";
   font-style: normal;
   font-weight: 300;
@@ -97,7 +107,7 @@ color: #8D8F9A;
   margin: 24px 0 0 16px;
 }
 
-.price {
+.card-price {
   font-family: "Raleway";
   font-style: normal;
   font-weight: 500;
@@ -106,4 +116,5 @@ color: #8D8F9A;
   text-align: right;
   color: #1d1f22;
   margin: 0 0 0 16px;
+
 }

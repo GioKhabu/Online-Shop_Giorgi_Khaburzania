@@ -1,10 +1,12 @@
 import { Component } from "react";
  import "./cart-styles.css"
  import CartItem from "./cart-item-component/cart-item-component";
+import { Link } from "react-router-dom";
+
 
 class Cart extends Component {
 
-  onOutsideClick1 = (event) => {
+  onOutsideClick1 = async (event) => {
     event.stopPropagation()
     event.target === event.currentTarget && this.props.onCklickOutside();
   };
@@ -53,7 +55,14 @@ class Cart extends Component {
             </div>
             <div className="cart-button-container">
               <button className="view-bag-button">VIEW BAG</button>
-              <button className="check-out-button">CHECK OUT</button>
+              <Link to="/checkout" className="cart-checkout-button">
+                <button
+                  className="check-out-button"
+                  onClick={this.props.onCklickOutside}
+                >
+                  CHECK OUT
+                </button>
+              </Link>
             </div>
           </div>
         </div>

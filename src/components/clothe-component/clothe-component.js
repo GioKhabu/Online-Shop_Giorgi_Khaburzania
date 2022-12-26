@@ -15,13 +15,15 @@ class Clothe extends Component {
               return (
                 <Card
                   key={item.id}
-                  gallery={item.gallery}
                   id={item.id}
+                  gallery={item.gallery}
                   name={item.name}
                   inStock={item.inStock}
                   prices={item.prices}
                   incrementItemCount={this.props.incrementItemCount}
                   priceId={this.props.priceId}
+                  productItemId={this.props.productItemId}
+                  updateProductId={this.props.updateProductId}
                 />
               );
             })}

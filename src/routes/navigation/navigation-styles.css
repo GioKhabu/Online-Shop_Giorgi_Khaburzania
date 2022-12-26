@@ -6,6 +6,7 @@
 .overal {
   width: 100vw;
   height: 100vh;
+  position: relative;
   overflow: hidden;
 }
 
@@ -21,22 +22,25 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 80px;
   width: 90vw;
 }
 
 .navigation-menu {
   display: flex;
   justify-content: center;
-  align-self: flex-start;
+  align-items: center;
+  align-self: center;
   height: 100%;
   max-width: 235px;
   margin-right: auto;
 }
 
 .link {
-  padding: 4px 16px auto 16px;
-  padding: 4px 16px 0 16px;
-  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 16px;
+  height: 100%;
   text-decoration: none;
   color: #1d1f22;
   font-family: "Raleway";

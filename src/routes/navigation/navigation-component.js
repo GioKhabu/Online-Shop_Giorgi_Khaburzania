@@ -2,7 +2,7 @@ import { Component } from "react";
 import { ReactComponent as Logo } from "../../assets/logo.svg";
 import { ReactComponent as Arrow } from "../../assets/arrow-down.svg";
 import { ReactComponent as CartIcon } from "../../assets/cart.svg";
-import { Outlet, Link, NavLink } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import Cart from "../../components/cart-component/cart-component";
 import Currency from "../../components/currency-component/currency-component";
 
@@ -29,11 +29,9 @@ class Navigation extends Component {
 
   openCart = () => {
     if (this.props.itemCount !== 0) {
-      this.state.cartisActive
-        ? this.setState({ cartisActive: false })
+      !this.state.cartisActive ? this.setState({ cartisActive: true })
         : this.setState({ cartisActive: true });
     }
-    console.log(this.cartisActive);
   };
 
   openCurrency = () => {
@@ -43,11 +41,10 @@ class Navigation extends Component {
   };
 
   render() {
-
     return (
       <div
         className={
-          this.props.cartisActive || this.state.currencyIsActive
+          this.state.cartisActive || this.state.currencyIsActive
             ? "overal"
             : "topContainer"
         }
@@ -76,7 +73,6 @@ class Navigation extends Component {
                 className={({ isActive }) =>
                   isActive ? "link active" : "link inactive"
                 }
-                // className="link"
               >
                 clothes
               </NavLink>
