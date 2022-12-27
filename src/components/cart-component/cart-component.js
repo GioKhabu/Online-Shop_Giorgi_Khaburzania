@@ -1,18 +1,15 @@
 import { Component } from "react";
- import "./cart-styles.css"
- import CartItem from "./cart-item-component/cart-item-component";
+import "./cart-styles.css";
+import CartItem from "./cart-item-component/cart-item-component";
 import { Link } from "react-router-dom";
 
-
 class Cart extends Component {
-
   onOutsideClick1 = async (event) => {
-    event.stopPropagation()
+    event.stopPropagation();
     event.target === event.currentTarget && this.props.onCklickOutside();
   };
 
   render() {
-
     return (
       <div className="cart-dropdown-overlap" onClick={this.onOutsideClick1}>
         <div className="cart-dropdown-container">
@@ -54,15 +51,15 @@ class Cart extends Component {
               </h4>
             </div>
             <div className="cart-button-container">
-              <button className="view-bag-button">VIEW BAG</button>
               <Link to="/checkout" className="cart-checkout-button">
                 <button
-                  className="check-out-button"
+                  className="view-bag-button"
                   onClick={this.props.onCklickOutside}
                 >
-                  CHECK OUT
+                  VIEW BAG
                 </button>
               </Link>
+              <button className="check-out-button">CHECK OUT</button>
             </div>
           </div>
         </div>
@@ -71,4 +68,4 @@ class Cart extends Component {
   }
 }
 
-export default Cart
+export default Cart;

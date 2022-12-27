@@ -77,7 +77,9 @@ class App extends Component {
           pricesType: res.data.categories[0].products[0].prices,
         });
       });
-      
+      this.setState({
+        totalCost: JSON.parse(localStorage.getItem("itemCount")),
+      });
   }
 
   changeCurrency = (event) => {
@@ -93,6 +95,7 @@ class App extends Component {
       this.state.itemCount > prevState.itemCount ||
       this.state.priceId !== prevState.priceId
     ) {
+      localStorage.setItem("itemCount", JSON.stringify(this.state.itemCount));
       const sum = this.state.cartProducts.reduce((accumulator, object) => {
         return (
           accumulator +

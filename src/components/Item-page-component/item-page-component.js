@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Parser from "html-react-parser";
 
 import "./item-page-styles.css";
 
@@ -35,7 +36,11 @@ class ItemPage extends Component {
             <div className="item-gallery">
               {filteredItem.gallery.map((item, index) => {
                 return (
-                  <div id={index} key={index} className="item-gallery-image-wrapper">
+                  <div
+                    id={index}
+                    key={index}
+                    className="item-gallery-image-wrapper"
+                  >
                     <img
                       id={index}
                       key={index}
@@ -110,9 +115,9 @@ class ItemPage extends Component {
             >
               ADD TO CART
             </button>
-            <h4 className="item-object-description">
-              {filteredItem.description.replace(/<[^>]*>?/gm, "")}
-            </h4>
+            <div className="item-object-description">
+              {Parser(filteredItem.description)}
+            </div>
           </div>
         </div>
       </div>
