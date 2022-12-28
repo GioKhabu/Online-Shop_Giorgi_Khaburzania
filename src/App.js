@@ -52,7 +52,6 @@ const POSTS_QUERY = gql`
 class App extends Component {
   constructor() {
     super();
-
     this.state = {
       allProducts: [],
       cartProducts: [],
@@ -62,24 +61,38 @@ class App extends Component {
       pricesType: [],
       priceId: 0,
       cartisActive: false,
-      productItemId: "ps-5",
+      productItemId: "",
     };
   }
 
   componentDidMount() {
-    client
-      .query({
-        query: POSTS_QUERY,
-      })
-      .then((res) => {
-        this.setState({
-          allProducts: res.data.categories[this.state.routIndex].products,
-          pricesType: res.data.categories[0].products[0].prices,
+    this.state.allProducts.length === 0 &&
+      client
+        .query({
+          query: POSTS_QUERY,
+        })
+        .then((res) => {
+          this.setState({
+            allProducts: res.data.categories[this.state.routIndex].products,
+            pricesType: res.data.categories[0].products[0].prices,
+          });
         });
-      });
+    this.state.allProducts.length !== 0 &&
       this.setState({
-        totalCost: JSON.parse(localStorage.getItem("itemCount")),
+        allProducts: JSON.parse(localStorage.getItem("allProducts")),
       });
+    this.setState({
+      productItemId: JSON.parse(localStorage.getItem("productItemId")),
+      priceId: Number(JSON.parse(localStorage.getItem("priceId"))),
+    });
+    JSON.parse(localStorage.getItem("cartProducts")) !== null &&
+      this.setState({
+        cartProducts: JSON.parse(localStorage.getItem("cartProducts")),
+        itemCount: JSON.parse(localStorage.getItem("itemCount")),
+      });
+    if (this.state.itemCount === 0 && this.state.productItemId === null) {
+      this.addAtt();
+    }
   }
 
   changeCurrency = (event) => {
@@ -95,7 +108,6 @@ class App extends Component {
       this.state.itemCount > prevState.itemCount ||
       this.state.priceId !== prevState.priceId
     ) {
-      localStorage.setItem("itemCount", JSON.stringify(this.state.itemCount));
       const sum = this.state.cartProducts.reduce((accumulator, object) => {
         return (
           accumulator +
@@ -105,7 +117,25 @@ class App extends Component {
       this.setState({
         totalCost: parseFloat(sum).toFixed(2),
       });
+    }
+    localStorage.setItem(
+      "productItemId",
+      JSON.stringify(this.state.productItemId)
+    );
+    localStorage.setItem("priceId", JSON.stringify(this.state.priceId));
+    if (this.state.allProducts !== prevState.allProducts) {
+      localStorage.setItem(
+        "allProducts",
+        JSON.stringify(this.state.allProducts)
+      );
+    }
 
+    if (this.state.cartProducts !== prevState.cartProducts) {
+      localStorage.setItem(
+        "cartProducts",
+        JSON.stringify(this.state.cartProducts)
+      );
+      localStorage.setItem("itemCount", JSON.stringify(this.state.itemCount));
     }
   }
 
@@ -117,9 +147,9 @@ class App extends Component {
       const filtered = item.id === event.currentTarget.id;
       return filtered;
     });
-    const findItem = this.state.cartProducts.some(
-      (item) => item.id === newCartItem[0].id
-    );
+    const findItem =
+      this.state.cartProducts.length !== 0 &&
+      this.state.cartProducts.some((item) => item.id === newCartItem[0].id);
     if (!findItem) {
       newCartItem[0].count = 1;
       this.setState({
@@ -134,9 +164,9 @@ class App extends Component {
         const countItems = [...this.state.cartProducts];
         countItems[idx] = {
           ...countItems[idx],
-          count: countItems[idx].count++,
+          count: countItems[idx].count + 1,
         };
-        this.setState(countItems);
+        this.setState({ cartProducts: [...countItems] });
         this.setState({ itemCount: this.state.itemCount + 1 });
       };
       incrementCount();
@@ -182,17 +212,6 @@ class App extends Component {
     }
   };
 
-  addAtt = () => {
-    if (this.state.itemCount === 0) {
-      this.state.allProducts.forEach((item) => {
-        item.galleryIndex = 0;
-        item.attributes.forEach((att) =>
-          att.items.forEach((attItem) => (attItem.isActive = false))
-        );
-      });
-    }
-  };
-
   updateProductId = (event) => {
     event.stopPropagation();
 
@@ -201,6 +220,7 @@ class App extends Component {
         productItemId: event.currentTarget.id,
       });
     }
+    this.addAtt();
   };
 
   changeGalleryImage = (event) => {
@@ -212,24 +232,45 @@ class App extends Component {
       Number(this.state.cartProducts[idx].gallery.length - 1) >
       this.state.cartProducts[idx].galleryIndex
     ) {
-      this.state.cartProducts[idx].galleryIndex++;
+      const newItems = [...this.state.cartProducts];
+      newItems[idx].galleryIndex++;
+      this.setState({ cartPruducts: newItems });
     } else {
-      this.state.cartProducts[idx].galleryIndex = 0;
+      const newItems = [...this.state.cartProducts];
+      newItems[idx].galleryIndex = 0;
+      this.setState({ cartPruducts: newItems });
+    }
+  };
+
+  changeGalleryImageBack = (event) => {
+    const idx = this.state.cartProducts.findIndex(
+      (countItem) => countItem.id === event.currentTarget.id
+    );
+    if (this.state.cartProducts[idx].galleryIndex !== 0) {
+      const newItems = [...this.state.cartProducts];
+      newItems[idx].galleryIndex--;
+      this.setState({ cartPruducts: newItems });
+    } else {
+      const newItems = [...this.state.cartProducts];
+      newItems[idx].galleryIndex =
+        this.state.cartProducts[idx].gallery.length - 1;
+      this.setState({ cartPruducts: newItems });
     }
     this.forceUpdate();
   };
 
-  changeGalleryImageBack = (event) => {
-        const idx = this.state.cartProducts.findIndex(
-          (countItem) => countItem.id === event.currentTarget.id
-        );
-        if (this.state.cartProducts[idx].galleryIndex !== 0) {
-          this.state.cartProducts[idx].galleryIndex--;
-        } else {
-          this.state.cartProducts[idx].galleryIndex =
-            this.state.cartProducts[idx].gallery.length - 1;
-        }
-    this.forceUpdate();
+  addAtt = () => {
+    if (this.state.itemCount === 0 && this.state.productItemId === null) {
+      const newItems = [...this.state.allProducts];
+      newItems.forEach((item) => {
+        item.galleryIndex = 0;
+        item.attributes.forEach((att) => {
+          att.items.forEach((attItem) => (attItem.isActive = false));
+          att.items[0].isActive = true;
+        });
+      });
+      this.setState({ allProducts: newItems });
+    }
   };
 
   selectAttribute = (event) => {
@@ -238,10 +279,11 @@ class App extends Component {
     const attId = event.currentTarget.parentNode.parentNode.id;
     const id = event.currentTarget.id;
 
-    this.state.allProducts.forEach((item) => {
+    const newItems = [...this.state.allProducts];
+    newItems.forEach((item) => {
       if (item.id === itemId) {
         item.attributes.forEach((att, index) => {
-          if (index === Number(attId)) {
+          if (Number(index) === Number(attId)) {
             att.items.forEach((attItem) => {
               if (attItem.value === id) {
                 attItem.isActive = true;
@@ -254,7 +296,24 @@ class App extends Component {
         });
       }
     });
-    this.forceUpdate();
+    const cartProducts = [...this.state.cartProducts];
+    cartProducts.forEach((item) => {
+      if (item.id === itemId) {
+        item.attributes.forEach((att, index) => {
+          if (Number(index) === Number(attId)) {
+            att.items.forEach((attItem) => {
+              if (attItem.value === id) {
+                attItem.isActive = true;
+              }
+              if (attItem.value !== id) {
+                attItem.isActive = false;
+              }
+            });
+          }
+        });
+      }
+    });
+    this.setState({ allProducts: newItems, cartProducts: cartProducts });
   };
 
   render() {
@@ -264,18 +323,21 @@ class App extends Component {
           <Route
             path="/"
             element={
-              <Navigation
-                cartProducts={this.state.cartProducts}
-                prices={this.state.pricesType}
-                incrementItemCount={this.incrementItemCount}
-                decrementItemCount={this.decrementItemCount}
-                selectAttribute={this.selectAttribute}
-                itemCount={this.state.itemCount}
-                totalCost={this.state.totalCost}
-                changeCurrency={this.changeCurrency}
-                priceId={this.state.priceId}
-                cartisActive={this.state.cartisActive}
-              />
+              this.state.allProducts.length && (
+                <Navigation
+                  cartProducts={this.state.cartProducts}
+                  allProducts={this.state.allProducts}
+                  prices={this.state.pricesType}
+                  incrementItemCount={this.incrementItemCount}
+                  decrementItemCount={this.decrementItemCount}
+                  selectAttribute={this.selectAttribute}
+                  itemCount={this.state.itemCount}
+                  totalCost={this.state.totalCost}
+                  changeCurrency={this.changeCurrency}
+                  priceId={this.state.priceId}
+                  cartisActive={this.state.cartisActive}
+                />
+              )
             }
           >
             <Route
@@ -321,6 +383,7 @@ class App extends Component {
                     incrementItemCount={this.incrementItemCount}
                     selectAttribute={this.selectAttribute}
                     priceId={this.state.priceId}
+                    addAtt={this.addAtt}
                   />
                 )
               }

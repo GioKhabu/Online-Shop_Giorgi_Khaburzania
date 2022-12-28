@@ -161,13 +161,13 @@
 .cart-color-styles:hover {
   border: none;
   outline: 2px solid #5ece7b;
-  outline-offset: 1px;
+  outline-offset: 2px;
 }
 
 .cart-color-active {
   border: none;
   outline: 2px solid #5ece7b;
-  outline-offset: 1px;
+  outline-offset: 2px;
 }
 
 .cart-normal-active  {

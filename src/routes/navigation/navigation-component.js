@@ -22,8 +22,12 @@ class Navigation extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.cartProducts.length !== prevProps.cartProducts.length) {
-      this.props.cartProducts.length < 1 && this.setState({ cartisActive: false });
+    if (
+      this.props.cartProducts && this.props.cartProducts.length !==
+      prevProps.cartProducts.length
+    ) {
+      this.props.cartProducts.length < 1 &&
+        this.setState({ cartisActive: false });
     }
   }
 
@@ -83,7 +87,9 @@ class Navigation extends Component {
             <div className="currency-cart-container">
               <div className="currency-container" onClick={this.openCurrency}>
                 <div>
-                  <span className="currency">$</span>
+                  <span className="currency">
+                    {this.props.prices[this.props.priceId].currency.symbol}
+                  </span>
                 </div>
                 <Arrow className="arrow" />
               </div>

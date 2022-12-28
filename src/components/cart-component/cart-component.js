@@ -9,6 +9,7 @@ class Cart extends Component {
     event.target === event.currentTarget && this.props.onCklickOutside();
   };
 
+
   render() {
     return (
       <div className="cart-dropdown-overlap" onClick={this.onOutsideClick1}>
