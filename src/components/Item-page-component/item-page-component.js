@@ -18,13 +18,15 @@ class ItemPage extends Component {
     });
   };
 
+
   render() {
     const filteredItem = this.props.allProducts.find((item) => {
       return item.id === this.props.productItemId;
     });
     return (
       <div className="item-page-wrapper">
-        <div className="item-container">
+        {this.props.productItemId.length !== 0 &&
+           <div className="item-container">
           <div className="item-photo-container">
             <div className="item-main-image-container">
               <img
@@ -120,6 +122,7 @@ class ItemPage extends Component {
             </div>
           </div>
         </div>
+        }
       </div>
     );
   }

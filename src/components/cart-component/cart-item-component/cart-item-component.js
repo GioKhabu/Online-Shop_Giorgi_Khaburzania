@@ -3,7 +3,6 @@ import { Component } from "react";
 class CartItem extends Component {
 
   render() {
-
     return (
       <div className="cart-item" id={this.props.id}>
         <div className="cart-item-details">
@@ -35,6 +34,7 @@ class CartItem extends Component {
                     } else if (attItem.isActive) {
                       classforActiveColor = "cart-normal-active";
                     }
+
                     return (
                       <div
                         className={`${classForStyles} ${classforActiveColor}`}
