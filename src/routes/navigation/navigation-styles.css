@@ -138,5 +138,5 @@ header {
   min-height: 20px;
   background: #1d1f22;
   border-radius: 180px;
-  z-index: 1;
+  z-index: 3;
 }

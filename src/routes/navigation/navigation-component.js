@@ -119,7 +119,7 @@ class Navigation extends Component {
             cartProducts={this.props.cartProducts}
             incrementItemCount={this.props.incrementItemCount}
             decrementItemCount={this.props.decrementItemCount}
-            selectAttribute={this.props.selectAttribute}
+            // selectAttribute={this.props.selectAttribute}
             itemCount={this.props.itemCount}
             totalCost={this.props.totalCost}
             priceId={this.props.priceId}

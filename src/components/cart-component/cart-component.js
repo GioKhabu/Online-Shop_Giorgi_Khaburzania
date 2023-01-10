@@ -18,7 +18,7 @@ class Cart extends Component {
             <div className="cart-header">
               <h3 className="cart-header-title">My Bag,</h3>
               <h4 className="cart-header-item-sum">
-                {this.props.itemCount} items
+                {this.props.itemCount} {this.props.itemCount === 1 ? 'item' : 'items'}
               </h4>
             </div>
             <div className="cart-items-group">
@@ -35,7 +35,6 @@ class Cart extends Component {
                     attributes={item.attributes}
                     incrementItemCount={this.props.incrementItemCount}
                     decrementItemCount={this.props.decrementItemCount}
-                    selectAttribute={this.props.selectAttribute}
                     priceId={this.props.priceId}
                   />
                 );

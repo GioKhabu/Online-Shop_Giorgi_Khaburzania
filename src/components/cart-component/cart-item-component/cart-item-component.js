@@ -41,7 +41,6 @@ class CartItem extends Component {
                         style={colorStyles}
                         key={attItem.value}
                         id={attItem.value}
-                        onClick={this.props.selectAttribute}
                       >
                         {item.name !== "Color" && attItem.value}
                       </div>

@@ -20,6 +20,7 @@ class Tech extends Component {
                     id={item.id}
                     gallery={item.gallery}
                     name={item.name}
+                    brand={item.brand}
                     inStock={item.inStock}
                     prices={item.prices}
                     incrementItemCount={this.props.incrementItemCount}
