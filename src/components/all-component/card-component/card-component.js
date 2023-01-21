@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import "./card-styles.css";
 
 class Card extends Component {
+
+  
   render() {
     
     return (

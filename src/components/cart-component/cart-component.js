@@ -9,8 +9,19 @@ class Cart extends Component {
     event.target === event.currentTarget && this.props.onCklickOutside();
   };
 
+  incrementItemCount = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const index = event.currentTarget.id;
+    const countItems = [...this.props.cartProducts];
+    countItems[index] = {
+      ...countItems[index],
+      count: countItems[index].count + 1,
+    };
+    this.props.incrementSameItemCountFromItem(countItems);
+  };
 
-  render() {
+render() {
     return (
       <div className="cart-dropdown-overlap" onClick={this.onOutsideClick1}>
         <div className="cart-dropdown-container">
@@ -18,22 +29,25 @@ class Cart extends Component {
             <div className="cart-header">
               <h3 className="cart-header-title">My Bag,</h3>
               <h4 className="cart-header-item-sum">
-                {this.props.itemCount} {this.props.itemCount === 1 ? 'item' : 'items'}
+                {this.props.itemCount}{" "}
+                {this.props.itemCount === 1 ? "item" : "items"}
               </h4>
             </div>
             <div className="cart-items-group">
-              {this.props.cartProducts.map((item) => {
+              {this.props.cartProducts.map((item, index) => {
                 return (
                   <CartItem
-                    key={item.id}
+                    key={index}
                     id={item.id}
+                    index={index}
                     gallery={item.gallery[0]}
                     name={item.name}
                     inStock={item.inStock}
                     count={item.count}
                     prices={item.prices}
                     attributes={item.attributes}
-                    incrementItemCount={this.props.incrementItemCount}
+                    incrementItemCount={this.incrementItemCount}
+                    // incrementCartItemCount={this.props.incrementCartItemCount}
                     decrementItemCount={this.props.decrementItemCount}
                     priceId={this.props.priceId}
                   />

@@ -21,6 +21,6 @@
 .header {
     align-self: flex-start;
     margin: 80px 0 103px 0px;
-    
+    text-transform: capitalize;
 }
 

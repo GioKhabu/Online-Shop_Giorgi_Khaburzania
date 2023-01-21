@@ -51,13 +51,17 @@ header {
   text-transform: uppercase;
 }
 
+.NavlinkWrapper {
+  height: 100%;
+}
+
 .link:hover {
   color: #5ece7b;
   border-bottom: 2px solid #5ece7b;
   font-weight: 600;
 }
 .active {
-    color: #5ece7b;
+  color: #5ece7b;
   border-bottom: 2px solid #5ece7b;
   font-weight: 600;
 }
