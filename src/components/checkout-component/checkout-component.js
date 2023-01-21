@@ -9,6 +9,55 @@ class Checkout extends Component {
       galleryItemIndex: Number(0),
     };
   }
+  incrementItemCount = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    const index = event.currentTarget.id;
+    const countItems = [...this.props.cartProducts];
+    countItems[index] = {
+      ...countItems[index],
+      count: countItems[index].count + 1,
+    };
+    this.props.incrementSameItemCountFromItem(countItems);
+  };
+
+  changeGalleryImage = (event) => {
+    const idx = event.currentTarget.id;
+        if (
+          this.props.cartProducts[idx].hasOwnProperty("galleryIndex") === false
+        ) {
+          this.props.cartProducts[idx].galleryIndex = 0;
+        }
+    if (
+      Number(this.props.cartProducts[idx].gallery.length - 1) >
+      this.props.cartProducts[idx].galleryIndex
+    ) {
+      const newItems = [...this.props.cartProducts];
+      newItems[idx].galleryIndex++;
+      this.props.changeGalleryImageIndex(newItems);
+    } else {
+      const newItems = [...this.props.cartProducts];
+      newItems[idx].galleryIndex = 0;
+      this.props.changeGalleryImageIndex(newItems);
+    }
+  };
+
+  changeGalleryImageBack = (event) => {
+    const idx = event.currentTarget.id;
+    if (this.props.cartProducts[idx].hasOwnProperty("galleryIndex") === false){
+      this.props.cartProducts[idx].galleryIndex = 0
+    }
+      if (this.props.cartProducts[idx].galleryIndex !== 0) {
+        const newItems = [...this.props.cartProducts];
+        newItems[idx].galleryIndex--;
+        this.props.changeGalleryImageIndex(newItems);
+      } else {
+        const newItems = [...this.props.cartProducts];
+        newItems[idx].galleryIndex =
+          this.props.cartProducts[idx].gallery.length - 1;
+        this.props.changeGalleryImageIndex(newItems);
+      }
+  };
 
   render() {
     return (
@@ -16,15 +65,17 @@ class Checkout extends Component {
         <div className="checkout-items-group">
           <h2 className="checkout-cart-name">CART</h2>
           <div className="checkout-items-group-wrapper">
-            {this.props.cartProducts.map((products) => {
+            {this.props.cartProducts.map((products, index) => {
               return (
-                <div className="checkout-items-wrapper" key={products.id}>
+                <div className="checkout-items-wrapper" key={index}>
                   <div className="checkout-item" id={products.id}>
                     <div className="checkout-item-details">
                       <h3 className="checkout-item-brand">{products.brand}</h3>
                       <h4 className="checkout-item-name">{products.name}</h4>
                       <h3 className="checkout-item-price">
-                        {products.prices[this.props.priceId].amount}{" "}
+                        {parseFloat(
+                          products.prices[this.props.priceId].amount
+                        ).toFixed(2)}{" "}
                         {products.prices[this.props.priceId].currency.symbol}
                       </h3>
                       {products.attributes.map((item, index) => {
@@ -57,9 +108,8 @@ class Checkout extends Component {
                                   <div
                                     className={`${classForStyles} ${classforActiveColor}`}
                                     style={colorStyles}
-                                    key={attItem.value}
+                                    key={index}
                                     id={attItem.value}
-                                    onClick={this.props.selectAttribute}
                                   >
                                     {item.name !== "Color" && attItem.value}
                                   </div>
@@ -73,8 +123,8 @@ class Checkout extends Component {
                     <div className="checkout-item-count">
                       <span
                         className="checkout-plus"
-                        id={products.id}
-                        onClick={this.props.incrementItemCount}
+                        id={index}
+                        onClick={this.incrementItemCount}
                       >
                         +
                       </span>
@@ -83,7 +133,7 @@ class Checkout extends Component {
                       </span>
                       <span
                         className="checkout-minus"
-                        id={products.id}
+                        id={index}
                         onClick={this.props.decrementItemCount}
                       >
                         -
@@ -92,21 +142,21 @@ class Checkout extends Component {
                     <div className="checkout-item-image-container">
                       <img
                         className="checkout-item-image"
-                        src={products.gallery[products.galleryIndex]}
+                        src={
+                          products.gallery[
+                            products.hasOwnProperty("galleryIndex")
+                              ? products.galleryIndex
+                              : 0
+                          ]
+                        }
                         alt={products.name}
                       />
                       <div className="checkout-image-arrows">
                         <ul className="checkout-arrow-wraper">
-                          <li
-                            onClick={this.props.changeGalleryImageBack}
-                            id={products.id}
-                          >
+                          <li onClick={this.changeGalleryImageBack} id={index}>
                             <span className="checkout-arrow arrow-right"></span>
                           </li>
-                          <li
-                            id={products.id}
-                            onClick={this.props.changeGalleryImage}
-                          >
+                          <li id={index} onClick={this.changeGalleryImage}>
                             <span className="checkout-arrow arrow-left"></span>
                           </li>
                         </ul>
@@ -123,7 +173,8 @@ class Checkout extends Component {
               {
                 this.props.allProducts[0].prices[this.props.priceId].currency
                   .symbol
-              }{parseFloat((this.props.totalCost * 21) / 100).toFixed(2)}
+              }
+              {parseFloat((this.props.totalCost * 21) / 100).toFixed(2)}
             </span>
           </h3>
           <h3 className="checkout-sum">
@@ -135,7 +186,8 @@ class Checkout extends Component {
               {
                 this.props.allProducts[0].prices[this.props.priceId].currency
                   .symbol
-              }{parseFloat(this.props.totalCost).toFixed(2)}
+              }
+              {parseFloat(this.props.totalCost).toFixed(2)}
             </span>
           </h3>
           <button className="order-button">Order</button>

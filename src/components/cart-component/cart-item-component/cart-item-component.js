@@ -8,7 +8,10 @@ class CartItem extends Component {
         <div className="cart-item-details">
           <h4 className="cart-item-name">{this.props.name}</h4>
           <h3 className="cart-item-price">
-            {this.props.prices[this.props.priceId].amount}{" "}
+            
+            {parseFloat(
+              this.props.prices[this.props.priceId].amount
+            ).toFixed(2)}{" "}
             {this.props.prices[this.props.priceId].currency.symbol}
           </h3>
           {this.props.attributes.map((item, index) => {
@@ -41,7 +44,6 @@ class CartItem extends Component {
                         style={colorStyles}
                         key={attItem.value}
                         id={attItem.value}
-                        onClick={this.props.selectAttribute}
                       >
                         {item.name !== "Color" && attItem.value}
                       </div>
@@ -55,7 +57,7 @@ class CartItem extends Component {
         <div className="cart-item-count">
           <span
             className="cart-plus"
-            id={this.props.id}
+            id={this.props.index}
             onClick={this.props.incrementItemCount}
           >
             +
@@ -63,7 +65,7 @@ class CartItem extends Component {
           <span className="cart-item-amount">{this.props.count}</span>
           <span
             className="cart-minus"
-            id={this.props.id}
+            id={this.props.index}
             onClick={this.props.decrementItemCount}
           >
             -

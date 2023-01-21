@@ -8,23 +8,21 @@ import Currency from "../../components/currency-component/currency-component";
 
 import "./navigation-styles.css";
 
-
-
 class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = { cartisActive: false, currencyIsActive: false };
   }
 
-  closeCart = () => {
+ closeCart = () => {
     this.state.cartisActive && this.setState({ cartisActive: false });
     this.state.currencyIsActive && this.setState({ currencyIsActive: false });
   };
 
   componentDidUpdate(prevProps) {
     if (
-      this.props.cartProducts && this.props.cartProducts.length !==
-      prevProps.cartProducts.length
+      this.props.cartProducts &&
+      this.props.cartProducts.length !== prevProps.cartProducts.length
     ) {
       this.props.cartProducts.length < 1 &&
         this.setState({ cartisActive: false });
@@ -33,7 +31,8 @@ class Navigation extends Component {
 
   openCart = () => {
     if (this.props.itemCount !== 0) {
-      !this.state.cartisActive ? this.setState({ cartisActive: true })
+      !this.state.cartisActive
+        ? this.setState({ cartisActive: true })
         : this.setState({ cartisActive: true });
     }
   };
@@ -43,6 +42,8 @@ class Navigation extends Component {
       ? this.setState({ currencyIsActive: false })
       : this.setState({ currencyIsActive: true });
   };
+  
+
 
   render() {
     return (
@@ -56,30 +57,21 @@ class Navigation extends Component {
         <header onClick={() => this.closeCart()}>
           <div className="navigation-container">
             <nav className="navigation-menu">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive ? "link active" : "link"
-                }
-              >
-                all
-              </NavLink>
-              <NavLink
-                to="/tech"
-                className={({ isActive }) =>
-                  isActive ? "link active" : "link inactive"
-                }
-              >
-                tech
-              </NavLink>
-              <NavLink
-                to="/clothe"
-                className={({ isActive }) =>
-                  isActive ? "link active" : "link inactive"
-                }
-              >
-                clothes
-              </NavLink>
+              {this.props.categories.map((item, index) => {
+                return (
+                  <div key={item.name} className="NavlinkWrapper">
+                    <NavLink
+                      to={item.name === "all" ? "/" : `/${item.name}`}
+                      id={item.name}
+                      className={({ isActive }) =>
+                        isActive ? "link active" : "link inactive"
+                      }
+                    >
+                      {item.name}
+                    </NavLink>
+                  </div>
+                );
+              })}
             </nav>
             <div className="logo-container">
               <Logo className="logo"></Logo>
@@ -118,11 +110,14 @@ class Navigation extends Component {
             onCklickOutside={this.closeCart}
             cartProducts={this.props.cartProducts}
             incrementItemCount={this.props.incrementItemCount}
+            // incrementCartItemCount={this.props.incrementCartItemCount}
             decrementItemCount={this.props.decrementItemCount}
-            selectAttribute={this.props.selectAttribute}
             itemCount={this.props.itemCount}
             totalCost={this.props.totalCost}
             priceId={this.props.priceId}
+            incrementSameItemCountFromItem={
+              this.props.incrementSameItemCountFromItem
+            }
           />
         )}
         <Outlet />

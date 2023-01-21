@@ -142,7 +142,6 @@
   line-height: 160%;
   color: #1d1f22;
   border: solid 1px #1d1f22;
-  cursor: pointer;
 }
 
 .cart-color-styles {
@@ -150,19 +149,9 @@
   min-width: 16px;
   margin: 8px 5px 0 3px;
   border: solid 0.2px rgba(29, 31, 34, .1);
-  cursor: pointer;
 }
 
-.cart-normal-styles:hover {
-  background: #1d1f22;
-  color: #ffffff;
-}
 
-.cart-color-styles:hover {
-  border: none;
-  outline: 2px solid #5ece7b;
-  outline-offset: 2px;
-}
 
 .cart-color-active {
   border: none;

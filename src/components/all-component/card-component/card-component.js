@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import "./card-styles.css";
 
 class Card extends Component {
+
+  
   render() {
     
     return (
@@ -36,7 +38,7 @@ class Card extends Component {
             </div>
           )}
           <div className="card-info">
-            <h3 className="card-name">{this.props.name}</h3>
+            <h3 className="card-name">{this.props.brand} {this.props.name}</h3>
             <h3 className="card-price">
               {this.props.prices[this.props.priceId].amount}{" "}
               {this.props.prices[this.props.priceId].currency.symbol}
