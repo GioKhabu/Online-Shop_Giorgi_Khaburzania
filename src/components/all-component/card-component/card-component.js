@@ -11,7 +11,9 @@ class Card extends Component {
     
     return (
       <div
-        className={`card-container ${!this.props.inStock && 'out-of-stock-opecity'}`}
+        className={`card-container ${
+          !this.props.inStock && "out-of-stock-opecity"
+        }`}
         id={this.props.id}
         onClick={this.props.updateProductId}
       >
@@ -38,9 +40,13 @@ class Card extends Component {
             </div>
           )}
           <div className="card-info">
-            <h3 className="card-name">{this.props.brand} {this.props.name}</h3>
+            <h3 className="card-name">
+              {this.props.brand} {this.props.name}
+            </h3>
             <h3 className="card-price">
-              {this.props.prices[this.props.priceId].amount}{" "}
+              {parseFloat(this.props.prices[this.props.priceId].amount).toFixed(
+                2
+              )}{" "}
               {this.props.prices[this.props.priceId].currency.symbol}
             </h3>
           </div>

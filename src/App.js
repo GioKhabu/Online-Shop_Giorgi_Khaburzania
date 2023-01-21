@@ -300,7 +300,7 @@ class App extends Component {
           <Route
             path="/"
             element={
-              this.state.allProducts.length && (
+              this.state.allProducts.length ? (
                 <Navigation
                   categories={this.state.categories}
                   changeCategoryIndex={this.changeCategoryIndex}
@@ -317,7 +317,7 @@ class App extends Component {
                     this.incrementSameItemCountFromItem
                   }
                 />
-              )
+              ) : null
             }
           >
             <Route path="/:category" element={<Wrapper />} />
