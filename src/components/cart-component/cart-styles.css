@@ -1,21 +1,22 @@
 .cart-dropdown-overlap {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start;
   position: absolute;
   margin-right: 100vw;
   width: 100vw;
   height: calc(100vh - 80px);
   background-color: rgba(57, 55, 72, 0.22);
+  overflow: hidden;
   z-index: 2;
 }
 
 .cart-dropdown-container {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   width: 325px;
   max-height: calc(100vh - 80px);
-  margin-top: -1px;
+  margin-top: 1px;
   margin-right: 4vw;
   background-color: white;
   z-index: 1;
@@ -28,8 +29,12 @@
   flex-direction: column;
 }
 
+.cart-header {
+  display: flex;
+}
+
 .cart-items-group {
-  max-height: calc(100vh - 90px);
+  max-height: calc(100vh - 320px);
   overflow-y: auto;
   margin-right: -11px;
 }
@@ -54,9 +59,7 @@
 	background-color: rgb(161, 158, 158);
 }
 
-.cart-header {
-  display: flex;
-}
+
 
 .cart-header-title {
   font-family: "Raleway";
@@ -80,6 +83,7 @@
 
 .cart-item {
   margin-top: 32px;
+  margin-left: 1px;
   display: flex;
 }
 
