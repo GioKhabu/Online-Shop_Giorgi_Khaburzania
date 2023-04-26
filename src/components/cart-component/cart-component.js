@@ -9,18 +9,6 @@ class Cart extends Component {
     event.target === event.currentTarget && this.props.onCklickOutside();
   };
 
-  incrementItemCount = (event) => {
-    event.stopPropagation();
-    event.preventDefault();
-    const index = event.currentTarget.id;
-    const countItems = [...this.props.cartProducts];
-    countItems[index] = {
-      ...countItems[index],
-      count: countItems[index].count + 1,
-    };
-    this.props.incrementSameItemCountFromItem(countItems);
-  };
-
 render() {
     return (
       <div className="cart-dropdown-overlap" onClick={this.onOutsideClick1}>
@@ -46,7 +34,7 @@ render() {
                     count={item.count}
                     prices={item.prices}
                     attributes={item.attributes}
-                    incrementItemCount={this.incrementItemCount}
+                    incrementItemCount={this.props.incrementItemCount}
                     // incrementCartItemCount={this.props.incrementCartItemCount}
                     decrementItemCount={this.props.decrementItemCount}
                     priceId={this.props.priceId}

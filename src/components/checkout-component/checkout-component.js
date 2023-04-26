@@ -65,44 +65,39 @@ class Checkout extends Component {
         <div className="checkout-items-group">
           <h2 className="checkout-cart-name">CART</h2>
           <div className="checkout-items-group-wrapper">
-            {this.props.cartProducts.map((products, index) => {
+            {this.props.cartProducts.map((products, i) => {
               return (
-                <div className="checkout-items-wrapper" key={index}>
+                <div className="checkout-items-wrapper" key={i}>
                   <div className="checkout-item" id={products.id}>
                     <div className="checkout-item-details">
                       <h3 className="checkout-item-brand">{products.brand}</h3>
                       <h4 className="checkout-item-name">{products.name}</h4>
                       <h3 className="checkout-item-price">
-                        {parseFloat(
-                          products.prices[this.props.priceId].amount
-                        ).toFixed(2)}{" "}
+                        {parseFloat(products.prices[this.props.priceId].amount).toFixed(2)}{' '}
                         {products.prices[this.props.priceId].currency.symbol}
                       </h3>
                       {products.attributes.map((item, index) => {
                         return (
                           <div key={index} id={index}>
-                            <h4 className="checkout-item-attribute-type">
-                              {item.name}
-                            </h4>
+                            <h4 className="checkout-item-attribute-type">{item.name}</h4>
                             <div className="checkout-item-attributes-container">
                               {item.items.map((attItem, index) => {
                                 let colorStyles = {};
-                                let classforActiveColor = "";
-                                let classForStyles = "";
-                                if (item.name === "Color") {
+                                let classforActiveColor = '';
+                                let classForStyles = '';
+                                if (item.name === 'Color') {
                                   colorStyles = {
                                     background: attItem.value,
                                   };
-                                  classForStyles = "checkout-color-styles";
+                                  classForStyles = 'checkout-color-styles';
                                 } else {
-                                  classForStyles = "checkout-normal-styles";
+                                  classForStyles = 'checkout-normal-styles';
                                 }
 
-                                if (attItem.isActive && item.name === "Color") {
-                                  classforActiveColor = "checkout-color-active";
+                                if (attItem.isActive && item.name === 'Color') {
+                                  classforActiveColor = 'checkout-color-active';
                                 } else if (attItem.isActive) {
-                                  classforActiveColor =
-                                    "checkout-normal-active";
+                                  classforActiveColor = 'checkout-normal-active';
                                 }
                                 return (
                                   <div
@@ -111,7 +106,7 @@ class Checkout extends Component {
                                     key={index}
                                     id={attItem.value}
                                   >
-                                    {item.name !== "Color" && attItem.value}
+                                    {item.name !== 'Color' && attItem.value}
                                   </div>
                                 );
                               })}
@@ -123,17 +118,15 @@ class Checkout extends Component {
                     <div className="checkout-item-count">
                       <span
                         className="checkout-plus"
-                        id={index}
+                        id={i}
                         onClick={this.incrementItemCount}
                       >
                         +
                       </span>
-                      <span className="checkout-item-amount">
-                        {products.count}
-                      </span>
+                      <span className="checkout-item-amount">{products.count}</span>
                       <span
                         className="checkout-minus"
-                        id={index}
+                        id={i}
                         onClick={this.props.decrementItemCount}
                       >
                         -
@@ -144,19 +137,17 @@ class Checkout extends Component {
                         className="checkout-item-image"
                         src={
                           products.gallery[
-                            products.hasOwnProperty("galleryIndex")
-                              ? products.galleryIndex
-                              : 0
+                            products.hasOwnProperty('galleryIndex') ? products.galleryIndex : 0
                           ]
                         }
                         alt={products.name}
                       />
                       <div className="checkout-image-arrows">
                         <ul className="checkout-arrow-wraper">
-                          <li onClick={this.changeGalleryImageBack} id={index}>
+                          <li onClick={this.changeGalleryImageBack} id={i}>
                             <span className="checkout-arrow arrow-right"></span>
                           </li>
-                          <li id={index} onClick={this.changeGalleryImage}>
+                          <li id={i} onClick={this.changeGalleryImage}>
                             <span className="checkout-arrow arrow-left"></span>
                           </li>
                         </ul>
