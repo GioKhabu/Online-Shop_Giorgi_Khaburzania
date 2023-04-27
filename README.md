@@ -10,6 +10,12 @@ The project was created within Scandiweb's Entry React developer TEST according 
 
 According to assignment I have followed to the figma design which was already prepared and delivered by Scandiweb.
 
+### Major Requirements
+
+- The project is built by using React.
+- Only class components were used during to its implementation there is no single functional component solution.
+- Only pure css solutions were used no UI libraries at all.
+
 ### Functionality
 
 Following requirements were accomplished during its implimentation:
@@ -21,3 +27,17 @@ Following requirements were accomplished during its implimentation:
 - Filtering products by category name for all of the categories from BE
 - The descriptions provided in HTML format should be parsed and presented as HTML, not as plain text
 - Ability to change the currency of the store to one of the available currencies
+
+## Main Pages
+
+- PLP - product listing page, a.k.a. category page
+![image](https://user-images.githubusercontent.com/86785378/234831193-ac7af3bb-1988-4cf3-b42e-6da468cfdefe.png)
+
+- PDP - product description page, a.k.a. product page
+![image](https://user-images.githubusercontent.com/86785378/234831658-49c7e42d-1b5c-41a1-8764-bbeb41aef06e.png)
+
+- Cart page + Cart overlay (minicart)
+![image](https://user-images.githubusercontent.com/86785378/234831963-68f87117-6bad-45f8-9a40-efecf4405cfc.png)
+
+![image](https://user-images.githubusercontent.com/86785378/234832208-ae4fa7ed-774a-40bd-90e4-21871e49d426.png)
+
